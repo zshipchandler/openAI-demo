@@ -10,16 +10,27 @@ import 'bootstrap/dist/css/bootstrap.css';
 const {Configuration, OpenAIApi} = require("openai");
 
 
-
 function Home() {
     const [header, setHeader] = useState("Response from AI:")
     const [response, setResponse] = useState("... awaiting response")
+
+    function onFormSubmit(e) {
+        e.preventDefault()
+    
+        const formData = new FormData(e.target),
+        formDataObject = Object.fromEntries(formData.entries())
+        console.log(formDataObject.description)
+
+        setHeader(`AI Results for: ${formDataObject.description}`)
+        setResponse(`Update to show response`)
+    }
+
 	return (
         <div>
             <br/>
             <h1>Welcome to an AI Powered Generator!</h1>
             <br/>
-            <Form>
+            <Form  onSubmit={onFormSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Generate X here</Form.Label>
                     <Form.Control type="text" name="description" placeholder="Enter description here" />
