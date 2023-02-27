@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "INSERT API KEY",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
