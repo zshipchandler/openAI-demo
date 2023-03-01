@@ -17,8 +17,10 @@ const openai = new OpenAIApi(configuration);
 function Home() {
     const [header, setHeader] = useState("Response from AI:")
     const [response, setResponse] = useState("... awaiting response")
+    const [loading, setLoading] = useState(false)
 
     async function fetchOpenAi(prompt) {
+        setLoading(true)
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: `${prompt}`,
@@ -28,6 +30,7 @@ function Home() {
             frequency_penalty: 0,
             presence_penalty: 0,
           });
+        setLoading(false)
         return response;
 
     }
@@ -62,14 +65,13 @@ function Home() {
                     The more specific the description, the better the response.
                     </Form.Text>
                 </Form.Group>
-
                 <Button variant="primary" size="lg" type="submit">
                     Get AI Response
                 </Button>
             </Form>
             <br/>
             <br/>
-
+            {loading && <h5>Loading...</h5>}
             <Card>
                 <Card.Body>
                     <Card.Title><h1>{header}</h1></Card.Title>
